@@ -4,26 +4,68 @@ from libqtile.lazy import lazy
 import os
 import subprocess
 
+
+#################
+### Initial variables ###
+#################
+
 mod = "mod4"
 terminal = "alacritty"
-browser = "firefox-developer-edition"
 
+
+######################
+### X11 or Wayland ###
+######################
+
+"""
+Some things need to happen differently depending on which.
+Creates some boolean objects which make the rest of it more readable.
+And sorts out the startup stuff.
+
+Dependencies: just make sure you "chmod +x" the .sh files
+"""
 
 if qtile.core.name == "x11":
-    launcher = "rofi -combi-modi window,drun,ssh -theme solarized -font \"hack 10\" -show combi"
-    # Autostart when qtile launches
-    @hook.subscribe.startup_once
-    def autostart():
-        home = os.path.expanduser('~/.config/qtile/autostart-x11.sh')
-        subprocess.Popen([home])
+    x11 = True
+    wayland = False
+    start = '~/.config/qtile/x11.sh'
 elif qtile.core.name == "wayland":
-    launcher = "fuzzel --width 50 --no-icons"
-    # Autostart when qtile launches
-    @hook.subscribe.startup_once
-    def autostart():
-        home = os.path.expanduser('~/.config/qtile/autostart-wayland.sh')
-        subprocess.Popen([home])
+    wayland = True
+    x11 = False
+    start = '~/.config/qtile/wayland.sh'
 
+
+#################
+### Autostart ###
+#################
+
+"""
+Takes the start variable above and runs it.
+"""
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser(start)
+    subprocess.Popen([home])
+
+
+################
+### Launcher ###
+################
+
+"""
+TODO: Find a launcher that doesn't care.
+"""
+
+if x11:
+    launcher = "rofi -combi-modi window,drun,ssh -theme solarized -font \"hack 10\" -show combi"
+elif wayland:
+    launcher = "fuzzel --width 50 --no-icons"
+
+
+####################
+### Key bindings ###
+####################
 
 keys = [
 
@@ -68,11 +110,13 @@ keys = [
 
     # XF86 things
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10"), desc="Turn the brightness up"),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10-"), desc="Turn the brightness up"),
-    # Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    # Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
-    # Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute"))
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10-"), desc="Turn the brightness up")
 ]
+
+
+##################
+### Workspaces ###
+##################
 
 groups = [Group(i) for i in "123456789"]
 
@@ -91,6 +135,15 @@ for i in groups:
                 desc="move focused window to group {}".format(i.name)),
         ]
     )
+
+
+################
+### Defaults ###
+################
+
+"""
+TODO: Rip the bar stuff out of the screens just do it all in one go here.
+"""
 
 layout_defaults = {
     "border_focus": "#000000",
@@ -137,10 +190,17 @@ clock_defaults = {
     "format":"%Y-%m-%d %a %H:%M:%S"
 }
 
-# Wallpaper defaults (applied to every desktop)
 wallpaper_default = 'Wallpaper/13.jpg'
 wallpaper_mode_defalt = 'stretch'
 
+
+###############
+### Screens ###
+###############
+
+"""
+TODO: Some screen counting logic would be great here
+"""
 
 screens = [
     Screen(
@@ -243,7 +303,17 @@ screens = [
     )
 ]
 
-# Drag floating layouts.
+
+
+"""
+I've barely touched anything below this point
+"""
+
+
+########################
+### Floating windows ###
+########################
+
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
@@ -252,11 +322,6 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = True
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -269,23 +334,20 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ]
 )
+
+
+#####################
+### Misc settings ###
+#####################
+
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: list
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
 auto_minimize = False
-
-# When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
