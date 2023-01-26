@@ -1,6 +1,6 @@
 # Just all of my assorted config files
 
-Look, I trash my own system a lot trying new things. So here's the config files for the essentials (and a few of the things that aren't). It's only public so I can easily pull the files when I need.
+Look, I trash my own system a lot trying new things. So here's the config files for the essentials (and a few of the things that aren't). It's only public so I can easily pull the files when I need, and as an incentive to make things look pretty.
 
 Qtile is the big thing for me right now. Emphasis is on more distinction between Wayland and X11 (depends on the weather) and splitting out the config files into sections that make sense.
 
