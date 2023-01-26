@@ -7,3 +7,7 @@ Qtile is the big thing for me right now. Emphasis is on more distinction between
 I'll document this properly later, right now it's only intended for me.
 
 Wishlist: spend time messing around with Hyprland and Sway, those files are just the defaults right now.
+
+## arch_notes.md
+
+I started making notes on steps to (re)install Arch Linux ages ago and have been adding to them since. Again, I want them dumped somewhere public so I can get to them in the event I brick things (Evernote was ideal but this is cooler)
