@@ -158,7 +158,7 @@ uncomment `%wheel ALL=(ALL) NOPASSWD: ALL`
 
 I lied earlier, in nearly all cases all of these are getting installed.
 
-`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance lxsession vlc ark htop`
+`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance lxsession vlc ark htop font-manager python python-pip`
 
 ### INSTALL AURA
 

@@ -150,13 +150,13 @@ for i in groups:
         [
             # mod1 + letter of group = switch to group
             Key(
-                [mod],i.name,lazy.group[i.name].toscreen(),
-                    desc="Switch to group {}".format(i.name),
+                [mod], i.name, lazy.group[i.name].toscreen(),
+                desc="Switch to group {}".format(i.name),
             ),
             # mod1 + shift + letter of group = move focused window to group
             Key(
                 [mod, "shift"], i.name, lazy.window.togroup(i.name),
-                    desc="move focused window to group {}".format(i.name)
+                desc="move focused window to group {}".format(i.name)
             ),
         ]
     )
@@ -187,7 +187,7 @@ layouts = [
 ######################################
 
 widget_defaults = {
-    "font": "Hack",
+    "font": "Fira Sans Mono Bold",
     "fontshadow": "000000",
     "fontsize": 13,
     "padding": 3
@@ -211,14 +211,14 @@ wallpaper_mode_defalt = 'stretch'
 def aBar():
     separator_defaults = {
         "linewidth": 1,
-        "size_percent": 50,
+        "size_percent": 35,
         "padding": 20
     }
     thisBar = bar.Bar(
         [
             widget.GroupBox(
                 highlight_method='line',
-                highlight_color = ['00000000', '87CEEB'],
+                highlight_color=['00000000', '87CEEB'],
                 this_current_screen_border='87CEEB',
                 this_screen_border='4682B4',
                 other_current_screen_border='87CEEB',
@@ -234,13 +234,6 @@ def aBar():
                 cursorblink=0.3
             ),
             widget.Spacer(),
-            widget.Sep(
-                **separator_defaults
-            ),
-            widget.CapsNumLockIndicator(),
-            widget.Sep(
-                **separator_defaults
-            ),
             widget.PulseVolume(
                 fmt="VOL:{}"
             ),
