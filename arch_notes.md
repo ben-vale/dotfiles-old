@@ -194,7 +194,7 @@ Old notes for everything I may have been interested in at one point, currently t
 
 ### Qtile
 
-`pacman -S qtile pulseaudio alsa-utils pcmanfm`
+`pacman -S qtile python-pywlroots pulseaudio alsa-utils pcmanfm`
 
 And then these correspond with what's in my config.
 
