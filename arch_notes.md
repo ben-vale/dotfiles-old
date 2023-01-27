@@ -76,7 +76,7 @@ Just reorder this so UK is up top
 
 Only including the main things needed at this stage, more packages are maybe dependent on WM/DE. There isn't really a reason I split these out.
 
-`pacstrap -k /mnt base base-devel linux linux-firmware mesa xf86-video-nouveau network-manager git vi nano man-db man-pages texinfo`
+`pacstrap /mnt base base-devel linux linux-firmware mesa xf86-video-nouveau networkmanager git vi nano man-db man-pages texinfo`
 
 ## GENERATE FSTAB RECORDS
 
@@ -152,15 +152,13 @@ Do this bit logged in as root. I'm lazy, I like rid of being prompted for a pass
 
 `visudo`
 
-Add the line `benv ALL=(ALL) ALL`
-
 uncomment `%wheel ALL=(ALL) NOPASSWD: ALL`
 
 ### ADDITIONAL PACKAGES
 
 I lied earlier, in nearly all cases all of these are getting installed.
 
-`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance vlc ark htop qbittorrent`
+`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance lxsession vlc ark htop`
 
 ### INSTALL AURA
 
@@ -176,13 +174,27 @@ I really like aura in spite of the Haskell dependencies. Doing this here because
 
 `makepkg -si`
 
+### OR INSTALL YAY
+
+Because aura broke last time I tried to get it onto a fresh install.
+
+`cd /opt`
+
+`sudo git clone https://aur.archlinux.org/yay.git`
+
+`sudo chown -R benv ./yay`
+
+`cd aura`
+
+`makepkg -si`
+
 ## SETTING UP AN ENVIRONMENT
 
 Old notes for everything I may have been interested in at one point, currently the main thing I use is Qtile.
 
 ### Qtile
 
-`pacman -S qtile pulseaudio alsa-utils pcmanfm lxsession`
+`pacman -S qtile pulseaudio alsa-utils pcmanfm`
 
 And then these correspond with what's in my config.
 
@@ -190,9 +202,9 @@ For X11's sake, `pacman -S picom rofi`
 
 For Wayland's sake, `pacman -S kanshi fuzzel wdisplays`
 
-Todo
+`yay -S wdisplays ly`
 
-- Sort a display manager here
+`systemctl enable ly`
 
 ### i3
 
