@@ -160,7 +160,7 @@ uncomment `%wheel ALL=(ALL) NOPASSWD: ALL`
 
 I lied earlier, in nearly all cases all of these are getting installed.
 
-`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance vlc ark`
+`pacman -S network-manager-applet firefox firefox-developer-edition alacritty emacs gnome-keyring lxappearance vlc ark htop qbittorrent`
 
 ### INSTALL AURA
 
@@ -188,7 +188,7 @@ And then these correspond with what's in my config.
 
 For X11's sake, `pacman -S picom rofi`
 
-For Wayland's arksake, `pacman -S kanshi fuzzel`
+For Wayland's sake, `pacman -S kanshi fuzzel wdisplays`
 
 Todo
 
